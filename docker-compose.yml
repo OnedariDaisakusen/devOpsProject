@@ -21,7 +21,7 @@ services:
     depends_on:
       - db
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/mibasedatos
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-db:5432/mibasedatos
       SPRING_DATASOURCE_USERNAME: miusuario
       SPRING_DATASOURCE_PASSWORD: miclave
     ports:
