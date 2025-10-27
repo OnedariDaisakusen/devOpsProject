@@ -1,12 +1,37 @@
 version: "3.9"
 
 services:
+  db:
+    image: postgres:16
+    container_name: postgres-db
+    environment:
+      POSTGRES_USER: miusuario
+      POSTGRES_PASSWORD: miclave
+      POSTGRES_DB: mibasedatos
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - mi-red
+
   app:
     build: .
     container_name: mi-app-java
+    depends_on:
+      - db
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/mibasedatos
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/mibasedatos
       SPRING_DATASOURCE_USERNAME: miusuario
       SPRING_DATASOURCE_PASSWORD: miclave
     ports:
       - "8080:8080"
+    networks:
+      - mi-red
+
+networks:
+  mi-red:
+
+volumes:
+  postgres_data:
+
